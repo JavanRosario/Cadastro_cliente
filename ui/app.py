@@ -119,7 +119,7 @@ class App(ctk.CTk):
             "Segoe UI", 16), text_color=["#000", "#fff"])
         input_obs.place(x=x_label, y=y_start + 3 * y_step + 4)
         obs_entry = ctk.CTkTextbox(self, width=670, height=150, font=(
-            'Arial', 18), bg_color='#aaa', border_width=2, fg_color='transparent')
+            'Arial', 18), bg_color='transparent', border_width=2, fg_color='transparent')
         obs_entry.place(x=x_label, y=y_start + 3 * y_step + 30)
 
         button_submit = ctk.CTkButton(
