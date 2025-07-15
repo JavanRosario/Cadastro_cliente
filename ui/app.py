@@ -12,6 +12,7 @@ ctk.set_default_color_theme("dark-blue")
 
 
 class App(ctk.CTk):
+    #initial config window
     def __init__(self):
         super().__init__()
         self.layout_config()
@@ -19,6 +20,7 @@ class App(ctk.CTk):
         self.all_system()
 
     def layout_config(self):
+        # principal window config
         self.title("Sistema de Cadastro de Clientes")
         self.geometry("800x500")
         self.resizable(False, False)  # disable resizing
@@ -36,6 +38,7 @@ class App(ctk.CTk):
         ctk.set_appearance_mode(new_appearance_mode)
 
     def open_archive(self):
+        #open exel archive
         path = os.path.abspath("Clientes.xlsx")
         if path:
             if sys.platform == 'win32':
@@ -46,6 +49,7 @@ class App(ctk.CTk):
                 subprocess.call(["xdg-open", path])
 
     def clear_exel_data(self):
+        #clear data in create archive
         if messagebox.askyesno('Confirmar', 'Deseja realmente apagar os dados do exel?'):
             clear_exel_data()
             messagebox.showinfo(
@@ -73,13 +77,14 @@ class App(ctk.CTk):
         init_exel()
 
         def submit():
+            #data savinf
             name = name_value.get()
             contact = contact_value.get()
             age = age_value.get()
             adress = address_value.get()
             gender = gender_combobox.get()
             obs = obs_entry.get(0.0, END)
-
+            #condition for filled data
             if not all([name, contact, age, adress, gender]):
                 messagebox.showwarning('Atenção', 'Preencha todos os campos!')
                 return
@@ -89,20 +94,21 @@ class App(ctk.CTk):
             clear()
 
         def clear():
+            #logic to clear program fields
             name_value.set('')
             contact_value.set('')
             age_value.set('')
             address_value.set('')
             obs_entry.delete("0.0", END)
-
+        # open archive button
         open_button = ctk.CTkButton(
             self, text='Abrir arquivo exel', command=self.open_archive, fg_color='#228', hover_color='#115')
         open_button.place(x=580, y=button_y - 82)
-
+        #clear data button
         clear_data_button = ctk.CTkButton(
             self, text='Limpar dados no Exel', command=self.clear_exel_data, fg_color='red', hover_color='#900')
         clear_data_button.place(x=200, y=460)
-
+        #stringvar cach
         name_value = StringVar()
         contact_value = StringVar()
         age_value = StringVar()
