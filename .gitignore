@@ -1,0 +1,24 @@
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment folders (if used)
+venv/
+env/
+.venv/
+
+# Excel data files
+Clientes.xlsx
+
+# Editor settings
+.vscode/
+.idea/
+
+# Environment files (e.g. .env)
+.env
+
+# System temporary files
+.DS_Store
+Thumbs.db
