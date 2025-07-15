@@ -12,9 +12,9 @@ ctk.set_default_color_theme("blue")
 
 class App(ctk.CTk):
     def __init__(self):
-        super().__init__()
+        super().__init__()  
         self.layout_config()
-        self.appearence()
+        self.appearance()
         self.all_system()
 
     def layout_config(self):
@@ -24,17 +24,24 @@ class App(ctk.CTk):
         self.maxsize(800, 500)
         self.minsize(800, 500)
 
-    def appearence(self):
+    def appearance(self):
         # Appearence mode ui
-        self.appearence_mode_label = ctk.CTkLabel(
+        self.appearance_mode_label = ctk.CTkLabel(
             self, text='tema', bg_color='transparent', text_color=['#000', '#fff']).place(x=50, y=430)
-        self.appearence_mode_opitions = ctk.CTkOptionMenu(
-            self, values=['Light', 'Dark', 'System'], command=self.change_appearence).place(x=50, y=460)
+        self.appearance_mode_options = ctk.CTkOptionMenu(
+            self, values=['Light', 'Dark', 'System'], command=self.change_appearance).place(x=50, y=460)
 
-    def change_appearence(self, new_appearence_mode):
-        ctk.set_appearance_mode(new_appearence_mode)
+    def change_appearance(self, new_appearance_mode):
+        ctk.set_appearance_mode(new_appearance_mode)
 
     def all_system(self):
+        # x,y patterns
+        x_label = 50
+        x_entry = 220
+        y_start = 120
+        y_step = 50
+        button_y = y_start + 4 * y_step + 20
+
         # header frame title
         frame = ctk.CTkFrame(self, width=800, height=50,
                              corner_radius=0, bg_color="green", fg_color="green")
@@ -43,14 +50,15 @@ class App(ctk.CTk):
             "Segoe UI", 25), text_color="#fff")
         title.place(relx=0.5, rely=0.5, anchor='center')
 
-        smal_box = ctk.CTkLabel(self, text='Prencha todos os campos:', font=(
+        small_box = ctk.CTkLabel(self, text='Prencha todos os campos:', font=(
             "Segoe UI", 16), text_color=["#000", "#fff"]).place(x=50, y=70)
 
-        # x,y patterns
-        x_label = 50
-        x_entry = 220
-        y_start = 120
-        y_step = 50
+        def submit():
+            pass
+
+        def clear():
+            pass
+
         # name
         input_name = ctk.CTkLabel(self, text='Nome Completo:', font=(
             "Segoe UI", 16), text_color=["#000", "#fff"])
@@ -80,7 +88,7 @@ class App(ctk.CTk):
             self, values=['Masculino', 'Feminino'], font=('Segoe UI', 15), width=120)
         gender_combobox.set('Masculino')
         gender_combobox.place(x=670, y=y_start + y_step - 5)
-        # addres
+        # address
         input_address = ctk.CTkLabel(self, text='Endereço:', font=(
             "Segoe UI", 16), text_color=["#000", "#fff"])
         input_address.place(x=x_label, y=y_start + 2 * y_step)
@@ -88,12 +96,19 @@ class App(ctk.CTk):
             "Segoe UI", 16), fg_color='transparent')
         address_entry.place(x=x_entry, y=y_start + 2 * y_step - 5)
         # OBS
-        input_obs = ctk.CTkLabel(self, text='Observaçoes:', font=(
+        input_obs = ctk.CTkLabel(self, text='Observações:', font=(
             "Segoe UI", 16), text_color=["#000", "#fff"])
         input_obs.place(x=x_label, y=y_start + 3 * y_step + 4)
         obs_entry = ctk.CTkTextbox(self, width=670, height=150, font=(
             'Arial', 18), bg_color='#aaa', border_width=2, fg_color='transparent')
         obs_entry.place(x=x_label, y=y_start + 3 * y_step + 30)
+
+        button_submit = ctk.CTkButton(
+            self, text='Salvar Dados', command=submit, fg_color='#151', hover_color='#131')
+        button_submit.place(x=220, y=button_y-82)
+        button_clear = ctk.CTkButton(
+            self, text='Limpar Campos', command=clear, fg_color='#555', hover_color='#333')
+        button_clear.place(x=400, y=button_y-82)
 
 
 if __name__ == '__main__':
