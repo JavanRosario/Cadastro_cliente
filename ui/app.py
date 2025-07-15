@@ -1,5 +1,6 @@
-from logic.exel_logic import init_exel, data_save
-from tkinter import messagebox,END,StringVar
+import subprocess
+from logic.exel_logic import init_exel, data_save, clear_exel_data
+from tkinter import messagebox, END, StringVar
 import customtkinter as ctk
 import sys
 import os
@@ -34,6 +35,22 @@ class App(ctk.CTk):
     def change_appearance(self, new_appearance_mode):
         ctk.set_appearance_mode(new_appearance_mode)
 
+    def open_archive(self):
+        path = os.path.abspath("Clientes.xlsx")
+        if path:
+            if sys.platform == 'win32':
+                os.startfile(path)
+            elif sys.platform == 'darwin':
+                subprocess.call(["open", path])
+            else:
+                subprocess.call(["xdg-open", path])
+
+    def clear_exel_data(self):
+        if messagebox.askyesno('Confirmar', 'Deseja realmente apagar os dados do exel?'):
+            clear_exel_data()
+            messagebox.showinfo(
+                'Sucesso', 'Dados do exel apagados com sucesso!')
+
     def all_system(self):
         # x,y patterns
         x_label = 50
@@ -52,8 +69,7 @@ class App(ctk.CTk):
 
         small_box = ctk.CTkLabel(self, text='Prencha todos os campos:', font=(
             "Segoe UI", 16), text_color=["#000", "#fff"]).place(x=50, y=70)
-        
-        
+
         init_exel()
 
         def submit():
@@ -63,8 +79,14 @@ class App(ctk.CTk):
             adress = address_value.get()
             gender = gender_combobox.get()
             obs = obs_entry.get(0.0, END)
+
+            if not all([name, contact, age, adress, gender]):
+                messagebox.showwarning('Atenção', 'Preencha todos os campos!')
+                return
+
             data_save(name, contact, age, adress, gender, obs)
             messagebox.showinfo('Sistema', 'Dados salvos com sucesso!')
+            clear()
 
         def clear():
             name_value.set('')
@@ -72,6 +94,14 @@ class App(ctk.CTk):
             age_value.set('')
             address_value.set('')
             obs_entry.delete("0.0", END)
+
+        open_button = ctk.CTkButton(
+            self, text='Abrir arquivo exel', command=self.open_archive, fg_color='#228', hover_color='#115')
+        open_button.place(x=580, y=button_y - 82)
+
+        clear_data_button = ctk.CTkButton(
+            self, text='Limpar dados no Exel', command=self.clear_exel_data, fg_color='red', hover_color='#900')
+        clear_data_button.place(x=200, y=460)
 
         name_value = StringVar()
         contact_value = StringVar()
