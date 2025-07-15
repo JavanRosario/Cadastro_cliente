@@ -1,6 +1,7 @@
 from pathlib import Path
 import openpyxl
 
+
 def init_exel():
     caminho = Path('Clientes.xlsx')
     if not caminho.exists():
@@ -14,6 +15,7 @@ def init_exel():
         ws['F1'] = 'Observações'
         wb.save('Clientes.xlsx')
 
+
 def data_save(nome, contato, idade, endereco, genero, observacoes):
     wb = openpyxl.load_workbook('Clientes.xlsx')
     ws = wb.active
@@ -24,4 +26,11 @@ def data_save(nome, contato, idade, endereco, genero, observacoes):
     ws.cell(row=linha, column=4, value=endereco)
     ws.cell(row=linha, column=5, value=genero)
     ws.cell(row=linha, column=6, value=observacoes)
+    wb.save('Clientes.xlsx')
+
+
+def clear_exel_data():
+    wb = openpyxl.load_workbook('Clientes.xlsx')
+    ws = wb.active
+    ws.delete_rows(2, ws.max_row-1)
     wb.save('Clientes.xlsx')
