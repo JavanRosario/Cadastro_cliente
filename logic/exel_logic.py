@@ -3,6 +3,7 @@ import openpyxl
 
 
 def init_exel():
+    #initializing xlsx file
     caminho = Path('Clientes.xlsx')
     if not caminho.exists():
         wb = openpyxl.Workbook()
@@ -17,6 +18,7 @@ def init_exel():
 
 
 def data_save(nome, contato, idade, endereco, genero, observacoes):
+    #saving data in columns, splitting by names
     wb = openpyxl.load_workbook('Clientes.xlsx')
     ws = wb.active
     linha = ws.max_row + 1
@@ -30,6 +32,7 @@ def data_save(nome, contato, idade, endereco, genero, observacoes):
 
 
 def clear_exel_data():
+    #function to clear all written data
     wb = openpyxl.load_workbook('Clientes.xlsx')
     ws = wb.active
     ws.delete_rows(2, ws.max_row-1)
